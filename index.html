@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item" id="iphone">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="iphone-minus-btn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="iphone-number-input" type="text" class="form-control text-center input-change" value="1">
+                           <button id="iphone-plus-btn" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$<span id="iphone-price-text">1219</span></h5>
+                        <button class="btn btn-default"><img src="images/remove.png" alt="" class="remove-item" id="remove-iphone"></button>
+                        
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item" id="case">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="case-minus-btn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="case-number-input" type="text" class="form-control text-center input-change" value="1">
+                           <button id="case-plus-btn" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$<span id="case-price-text">59</span></h5>
+                        <button class="btn btn-default"><img src="images/remove.png" alt="" class="remove-item" id="remove-case"></button>
+                        
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$<span id="subtotal-price-text">1,278</span></h5>
+                        <h5>$<span id="tax">0</span></h5>
+                        <h5>$<span id="total">1,278</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <script>
+      
+      // Iiphone section
+      var iphoneNumberInput = document.getElementById("iphone-number-input");
+      // Plus button for iphone section
+      var iphonePlusBtn = document.getElementById("iphone-plus-btn");
+      iphonePlusBtn.addEventListener("click", function(){
+         iphoneNumberInput.value++;
+         iphonePriceUpdate();
+         subtotalTaxTotalUpdate();
+      })
+      // Minus button for iphone section
+      var iphoneMinusBtn = document.getElementById("iphone-minus-btn");
+      iphoneMinusBtn.addEventListener("click", function(){
+         iphoneNumberInput.value--;
+         if (iphoneNumberInput.value < 0){
+            iphoneNumberInput.value = 0;
+         }
+         iphonePriceUpdate();
+         subtotalTaxTotalUpdate();
+      })
+      var iphonePriceText = document.getElementById("iphone-price-text");
+      function iphonePriceUpdate(){
+         var iphonePriceNumber = iphoneNumberInput.value * 1219;
+         iphonePriceText.innerHTML = iphonePriceNumber;
+      }
+      iphoneNumberInput.addEventListener("input", iphonePriceUpdate);
+      iphoneNumberInput.addEventListener("input", subtotalTaxTotalUpdate);
+
+
+      // case section
+      var caseNumberInput = document.getElementById("case-number-input");
+      // Plus button for case section
+      var casePlusBtn = document.getElementById("case-plus-btn");
+      casePlusBtn.addEventListener("click", function(){
+         caseNumberInput.value++;
+         casePriceUpdate();
+         subtotalTaxTotalUpdate();
+      })
+      // Minus button for case section
+      var caseMinusBtn = document.getElementById("case-minus-btn");
+      caseMinusBtn.addEventListener("click", function(){
+         caseNumberInput.value--;
+         if (caseNumberInput.value < 0){
+            caseNumberInput.value = 0;
+         }
+         casePriceUpdate();
+         subtotalTaxTotalUpdate();
+      })
+      var casePriceText = document.getElementById("case-price-text");
+      function casePriceUpdate(){
+         var casePriceNumber = caseNumberInput.value * 59;
+         casePriceText.innerText = casePriceNumber;
+      }
+      caseNumberInput.addEventListener("input", casePriceUpdate);
+      caseNumberInput.addEventListener("input", subtotalTaxTotalUpdate);
+      
+      // remove section
+      var removeIphone = document.getElementById("remove-iphone");
+      removeIphone.addEventListener("click", function(){
+         var iphoneSection = document.getElementById("iphone");
+         iphoneSection.style.display = "none";
+         iphonePriceText.innerText = 0;
+         subtotalTaxTotalUpdate();
+      })
+      var removeCase = document.getElementById("remove-case");
+      removeCase.addEventListener("click", function(){
+         var caseSection = document.getElementById("case");
+         caseSection.style.display = "none";
+         casePriceText.innerText = 0;
+         subtotalTaxTotalUpdate();
+      })
+      
+
+      // Subtotal, Tax, Total section
+      subtotalTaxTotalUpdate();
+      function subtotalTaxTotalUpdate(){
+         var subtotalPriceText = document.getElementById("subtotal-price-text");
+         var tax = document.getElementById("tax");
+         var total = document.getElementById("total");
+         var subtotalNumber = parseFloat(casePriceText.innerText) + parseFloat(iphonePriceText.innerText);
+         var taxNumber = parseFloat(casePriceText.innerText) * .15 + parseFloat(iphonePriceText.innerText) * .15;
+         var totalNumber = subtotalNumber + taxNumber;
+         subtotalPriceText.innerText = subtotalNumber;
+         tax.innerText = taxNumber;
+         total.innerText = totalNumber;
+      }
+      
+   </script>
+</body>
+
+</html>
